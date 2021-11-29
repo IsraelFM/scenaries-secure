@@ -34,6 +34,7 @@ CREATE TABLE `users` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
+  UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -43,7 +44,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Israel Ferreira de Moraes','israel.moraes','123456','admin','2021-11-27 01:42:25',NULL);
+INSERT INTO `users` VALUES (1,'Israel Ferreira de Moraes','israel.moraes','$2y$10$9dnrtidWFK.UT1kIyJuWEuyOLH/xFAZmGHd80gI1jgEUETtzupbXi','admin','2021-11-27 01:42:25',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

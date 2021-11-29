@@ -15,17 +15,20 @@ if (empty($username) || empty($password)) {
 
 try {
 	$statement = $pdo->prepare(
-		"SELECT 'id, fullname'
+		"SELECT id, fullname, password
 			FROM `users`
-			WHERE `username` = :username AND `password` = :password"
+			WHERE `username` = :username"
 	);
+	$statement->execute([ 'username' => $username ]);
 
-	$statement->execute([
-		'username' => $username,
-		'password' => $password
-	]);
+	$user = $statement->fetchObject();
+	$pass_hashed = false;
 
-	if ($statement->rowCount() <= 0) {
+	if ($user) {
+		$pass_hashed = password_verify($password, $user->password);
+	}
+
+	if (!$user || !$pass_hashed) {
 		$pdo = null;
 		response_header(
 			false,
@@ -33,7 +36,7 @@ try {
 		);
 	}
 
-	$user = $statement->fetchObject();
+	unset($user->password);
 	$pdo = null;
 	response_header(
 		true,
